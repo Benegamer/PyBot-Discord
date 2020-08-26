@@ -31,7 +31,7 @@ embed = discord.Embed(
     title="Hallo World",
     color=0xe67e22,
     description="Herzlich Wilkommen auf meinem Disocrd server\n"
-                "Dies ist der /help befehl\n"
+                "Dies ist der !h befehl\n"
 )
 embed.set_author(
     name="Benegamer",
