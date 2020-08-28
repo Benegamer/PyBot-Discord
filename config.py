@@ -30,7 +30,7 @@ bot_prefix = read_bot_prefix()
 embed = discord.Embed(
     title="Hallo World",
     color=0xe67e22,
-    description="Herzlich Wilkommen auf meinem Disocrd server\n"
+    description="Help Bot\n"
                 "Dies ist der !h befehl\n"
 )
 embed.set_author(
@@ -39,11 +39,11 @@ embed.set_author(
 embed.add_field(
     name="Befehle",
     value="Dies sind alle Befehle, das Prefix ist !\n"
-          "play Yt url !!!Es gehen NUR Yt urls!!!\n"
-          "pause um das Lied zu Pausieren\n"
-          "resume zum weiteren Wiedergeben des Liedes\n"
-          "quit dammit der Bot den Channel verläst\n"
-          "uptime um die online Zeit des Bot zu sehen",
+          "COMMING SOON! play Yt url !!!Es gehen NUR Yt urls!!!\n"
+          "COMMING SOON! pause um das Lied zu Pausieren\n"
+          "COMMING SOON! resume zum weiteren Wiedergeben des Liedes\n"
+          "leave / l dammit der Bot den Channel verläst\n"
+          "COMMING SOON! uptime um die online Zeit des Bot zu sehen",
     inline=False
 )
 embed.add_field(
