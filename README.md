@@ -11,3 +11,5 @@ Config
     token.txt put token in there
     prefix.txt put prefix in there (default is "!")
     
+Coming soon:
+    !room       : creates a temporary room
