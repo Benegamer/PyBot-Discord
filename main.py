@@ -4,7 +4,7 @@ from discord.ext import commands
 from discord.utils import get
 import setup
 import config
-import time
+import datetime
 
 if setup.debug == True:
     print("==================================")
@@ -29,7 +29,7 @@ default_game = "null"
 
 @bot.event
 async def on_ready():
-    print('Music User connected')
+    print('User connected:')
     print(bot.user.name)
     print(bot.user.id)
     print('---------------')
@@ -51,6 +51,9 @@ async def helpme(ctx):
 #   Create Temporary room for 1H, create for x amount of persons
 #   !room --1h --2p
 
+@bot.command(pass_context=True, aluases=['t'])
+async def time(ctx):
+    await ctx.send(f"""Wir haben {datetime.datetime.now().time()} Uhr""")
 #===============================================================================================
 #Music stuff
 #===============================================================================================
@@ -79,5 +82,5 @@ async def leave(ctx):
         printme(f"User {ctx.message.author.id} wants me to go!")
     except:
         await ctx.send(Exception + "Maybe Im not in a Channel? ")
-
+#===============================================================================================
 bot.run(config.token)
