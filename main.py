@@ -5,27 +5,13 @@ from discord.utils import get
 import setup
 import config
 import datetime
-
-if setup.debug == True:
-    print("==================================")
-    print("Token: " + config.token)
-    print("Prefix: " + config.bot_prefix)
-    print("==================================")
-
-def printme(printme):
-    print(setup.debug)
-    if setup.debug == True:
-        print(f"The bot {bot.user.name} with the id {bot.user.id} just performed an action!")
-        print(f"The action is:")
-        print(printme)
-    elif setup.minimal == True:
-        return
-    else:
-        print(printme)
+import debug
 
 bot = commands.Bot(command_prefix=config.bot_prefix)
 bot_prefix = config.bot_prefix
-default_game = "null"
+default_game = ""
+username = ""
+userid = ""
 
 @bot.event
 async def on_ready():
@@ -33,13 +19,15 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('---------------')
+    username = bot.user.name
+    botid = bot.user.id
 
 #===============================================================================================
 #Text commands
 #===============================================================================================
 @bot.command(pass_context=True, aliases=['h'])
 async def helpme(ctx):
-    printme(f"Send help to {ctx.message.author}")
+    #debug.printme(f"Send help to {ctx.message.author}")
     await ctx.send(embed=config.embed)
 
 #@bot.command(pass_context=True, aliases=['r'])
@@ -68,7 +56,7 @@ async def join(ctx):
             await voice.move_to(channel)
         else:
             voice = await channel.connect()
-            printme(f"Join to {ctx.message.author} in channel {channel}")
+            debug.printme(f"Join to {ctx.message.author} in channel {channel}")
 
         await ctx.send(f"Joined {channel}")
     except:
@@ -79,7 +67,7 @@ async def join(ctx):
 async def leave(ctx):
     try:
         await ctx.voice_client.disconnect()
-        printme(f"User {ctx.message.author.id} wants me to go!")
+        debug.printme(f"User {ctx.message.author.id} wants me to go!")
     except:
         await ctx.send(Exception + "Maybe Im not in a Channel? ")
 #===============================================================================================
