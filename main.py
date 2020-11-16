@@ -29,6 +29,7 @@ async def on_ready():
 async def helpme(ctx):
     #debug.printme(f"Send help to {ctx.message.author}")
     await ctx.send(embed=config.embed)
+#===============================================================================================
 
 #@bot.command(pass_context=True, aliases=['r'])
 #async def room(ctx):
@@ -43,11 +44,17 @@ async def helpme(ctx):
 async def time(ctx):
     await ctx.send(f"""Wir haben {datetime.datetime.now().time()} Uhr""")
 #===============================================================================================
+#config.default_game
+#discord.Game(default_game)
+
+
+
+
+#===============================================================================================
 #Music stuff
 #===============================================================================================
 @bot.command(pass_context = True, aliases=['j'])
 async def join(ctx):
-
     global voice
     channel = ctx.message.author.voice.channel
     voice = get(bot.voice_clients, guild=ctx.guild)

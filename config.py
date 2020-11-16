@@ -26,7 +26,10 @@ def read_bot_prefix():
 
 bot_prefix = read_bot_prefix()
 
+############################################################################
 #helpembed
+############################################################################
+
 embed = discord.Embed(
     title="Hallo World",
     color=0xe67e22,
@@ -56,3 +59,11 @@ embed.add_field(
     value="Bei Bugs ihn anschreiben !",
     inline=False
 )
+
+
+############################################################################
+#Game Stuff
+############################################################################
+default_game = "!helpme for personal help"
+
+

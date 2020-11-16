@@ -1,6 +1,6 @@
-import main
 import setup
 import config
+import main
 #initzialising  #setting default
 botname = 'DEFAULT NAME'
 botid = 'DEFAULT ID'

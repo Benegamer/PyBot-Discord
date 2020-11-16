@@ -1,7 +1,5 @@
 # Include modules
 import sys
-import os
-import subprocess
 
 global debug
 global minimal
