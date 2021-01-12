@@ -7,11 +7,8 @@ import config
 import datetime
 import debug
 
-bot = commands.Bot(command_prefix=config.bot_prefix)
+bot = commands.Bot(command_prefix=config.bot_prefix)#read config from config.py
 bot_prefix = config.bot_prefix
-default_game = ""
-username = ""
-userid = ""
 
 @bot.event
 async def on_ready():
@@ -40,14 +37,15 @@ async def helpme(ctx):
 #   Create Temporary room for 1H, create for x amount of persons
 #   !room --1h --2p
 
-@bot.command(pass_context=True, aluases=['t'])
+@bot.command(pass_context=True, aliases=['t'])
 async def time(ctx):
     await ctx.send(f"""Wir haben {datetime.datetime.now().time()} Uhr""")
 #===============================================================================================
-#config.default_game
-#discord.Game(default_game)
+#discord.Game(config.default_game)   #get default game for Startup or for setting to default
 
-
+#@bot.command(pass_context=True, aliases=['g'] )
+#async def game(ctx):
+#    if ctx.message.author.id == config.admin_id:    #check if author_id and admin_id are the same
 
 
 #===============================================================================================

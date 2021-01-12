@@ -1,30 +1,28 @@
 #imports
 import discord
+import json
 
 #v
 global token
 global bot_prefix
+global admin_id
 
-#token
-def read_token():
+
+def read_json():
     try:
-        with open("token", "r") as tokenn:
-            lines = tokenn.readlines()
-            return lines[0].strip()
-    except:
-        print("token file cant be empty")
-token = read_token()
+        # Opening JSON file
+        with open('config.json', 'r') as openfile:
+            # Reading from json file
+            data = json.load(openfile)
 
-#bot_prefix
-def read_bot_prefix():
-    try:
-        with open("prefix", "r") as prefixx:
-            lines = prefixx.readlines()
-            return lines[0].strip()
-    except:
-        print("prefix.txt file cant be empty!")
+            token = (data['token'])
 
-bot_prefix = read_bot_prefix()
+            bot_prefix = (data['bot_prefix'])
+
+            admin_id = (data['admin_id'])
+    except:
+        print("Somethin went wrong! I can feel it! \n")
+        print("Maybe run with '--settings'")
 
 ############################################################################
 #helpembed
@@ -65,5 +63,3 @@ embed.add_field(
 #Game Stuff
 ############################################################################
 default_game = "!helpme for personal help"
-
-
