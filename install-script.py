@@ -1,6 +1,5 @@
 #Setup script
 import json
-import sys
 
 def write_json():
     # Data to be written
@@ -13,10 +12,9 @@ def write_json():
     # Serializing json
     json_object = json.dumps(dictionary, indent=3)
 
-    # Writing to sample.json
+    # Writing to config.json
     with open("config.json", "w") as outfile:
         outfile.write(json_object)
 
 print("Setup complete! I did:")
 write_json()
-sys.exit(1)

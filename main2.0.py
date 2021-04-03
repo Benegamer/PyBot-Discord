@@ -5,13 +5,9 @@ from discord.ext import commands
 from discord.utils import get
 import json
 
-
 #Va
-token = 'null'
-bot_prefix = '!'
-admin_id ='000000000000000000'
-
 default_game = "!helpme for personal help"
+
 #read json for token prefix and adminid
 def read_json():
     try:
@@ -19,20 +15,21 @@ def read_json():
         with open('config.json', 'r') as openfile:
             # Reading from json file
             data = json.load(openfile)
-
+            global token
             token = (data['token'])
 
-            bot_prefix = (data['bot_prefix'])
+            global bot_prefix
+            bot_prefix = (data['prefix'])
 
+            global admin_id
             admin_id = (data['admin_id'])
     except:
         print("Somethin went wrong! I can feel it! \n")
 
-
+read_json()
 #set env for Bot
 bot = commands.Bot(command_prefix=bot_prefix)
 bot_prefix = bot_prefix
-
 
 #embed for help
 embed = discord.Embed(
@@ -64,7 +61,6 @@ async def on_ready():
     print('---------------')
     username = bot.user.name
     botid = bot.user.id
-
 
 #Botcommands
 @bot.command(pass_context=True, aliases=['h'])
@@ -102,8 +98,5 @@ async def leave(ctx):
     except:
         await ctx.send(Exception + "Maybe Im not in a Channel? ")
 
-
 #Startup
-read_json()
-
 bot.run(token)
