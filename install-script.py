@@ -18,5 +18,5 @@ def write_json():
         outfile.write(json_object)
 
 print("Setup complete! I did:")
-print(f"Wrote Json" + write_json())
+write_json()
 sys.exit(1)
