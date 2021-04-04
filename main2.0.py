@@ -67,8 +67,13 @@ def read_json():
             global bot_prefix
             bot_prefix = (data['prefix'])
 
+            #global keep_song
+            #keep_song = (data['keep_songs'])
+
     except:
-        print("Somethin went wrong! I can feel it! \n")
+        print("Something went wrong! I can feel it! \n")
+
+
 
 read_json()
 #set env for Bot
@@ -112,7 +117,6 @@ async def flip(ctx):
 
 #########################################################################################
 #Music
-
 @bot.command(aliases=['purl'],name="playurl", help='Play a song with an url')
 async def playurl(ctx, url):
 
@@ -123,16 +127,21 @@ async def playurl(ctx, url):
     else:
         channel = ctx.message.author.voice.channel
 
-    await channel.connect()
+    if ctx.voice_client == None:
+        await channel.connect()
 
     server = ctx.message.guild
     voice_channel = server.voice_client
-
+    ##Credit to SoftwareStep
     async with ctx.typing():
         player = await YTDLSource.from_url(url, loop=bot.loop)
+        try:
+            voice_channel.stop()
+        except:
+            pass
         voice_channel.play(player, after=lambda e: print('Player error: %s' %e) if e else None)
 
-        await ctx.send(f'**Now playing:**{player.title}**')
+        await ctx.send(f'**Now playing:**{player.title}')
 
 @bot.command(aliases=['j'],name='join', help='Joins to yor channel')
 async def join(ctx):

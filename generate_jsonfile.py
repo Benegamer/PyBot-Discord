@@ -5,11 +5,12 @@ def write_json():
     # Data to be written
     dictionary = {
         "token": "Put your Token here!",
-        "prefix": "Put your Prefix here!"
+        "prefix": "Put your Prefix here!",
+        #"keep_songs": "True/False"
     }
 
     # Serializing json
-    json_object = json.dumps(dictionary, indent=2)
+    json_object = json.dumps(dictionary, indent=3)
 
     # Writing to config.json
     with open("config.json", "w") as outfile:
