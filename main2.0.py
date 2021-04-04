@@ -2,17 +2,15 @@
 import asyncio
 import datetime
 import discord
-from discord import member  #test
-from discord.ext import commands, tasks
-from discord.utils import get
+from discord.ext import commands
 import json
 import youtube_dl
-from random import choice
+import random
 
 #Va
 default_game = "!helpme for personal help"
-
 queue = []
+
 youtube_dl.utils.bug_reports_message = lambda: ''
 
 ytdl_format_options = {
@@ -69,8 +67,6 @@ def read_json():
             global bot_prefix
             bot_prefix = (data['prefix'])
 
-            global admin_id
-            admin_id = (data['admin_id'])
     except:
         print("Somethin went wrong! I can feel it! \n")
 
@@ -78,28 +74,6 @@ read_json()
 #set env for Bot
 bot = commands.Bot(command_prefix=bot_prefix)
 bot_prefix = bot_prefix
-
-#embed for help
-embed = discord.Embed(
-    title="Hallo World",
-    color=0xe67e22,
-    description="Help Bot\n"
-                "Dies ist der !h befehl\n"
-)
-embed.set_author(
-    name="Benegamer",
-)
-embed.add_field(
-    name="Befehle",
-    value="Dies sind alle Befehle, das Prefix ist " + bot_prefix + "\n"
-          "...",
-    inline=False
-)
-embed.add_field(
-    name="Dieser Bot wurde von Benegamer geschrieben",
-    value="Bei Bugs ihn anschreiben !",
-    inline=False
-)
 
 #########################################################################################
 @bot.event
@@ -110,40 +84,68 @@ async def on_ready():
     print('---------------')
     await bot.change_presence(activity=discord.Game("!h for Help!"))
 
+@bot.event
+async def on_member_join(member):
+    channel = discord.utils.get(member.guild.channels, name='general')
+    await channel.send(f'Welcome {member.mention}! See the: "{bot_prefix}help" command for details!')
+
 #########################################################################################
 #Botcommands
-@bot.command(pass_context=True, aliases=['h'])
-async def helpme(ctx):
-    #debug.printme(f"Send help to {ctx.message.author}")
-    await ctx.send(embed=embed)
-
-
-@bot.command(pass_context=True, aliases=['t'])
+@bot.command(aliases=['t'],name="time", help='Get the current time')
 async def time(ctx):
-    await ctx.send(f"""Wir haben {datetime.datetime.now().time()} Uhr""")
+    now = datetime.datetime.now().time()
+
+    current_time = now.strftime("%H:%M:%S")
+    await ctx.send(f"""Wir haben {current_time} Uhr""")
+
+@bot.command(aliases=['f'],name="flip", help='Flip a coin')
+async def flip(ctx):
+    ran = random.randint(0,10)
+    if ran in range(0,5):
+        await ctx.send(":new_moon: ")
+    else:
+        await ctx.send(":full_moon:")
+
+@bot.command(aliases=['b'],name="bug", help='Bugreports and other thinks:')
+async def flip(ctx):
+    await ctx.send('Please go to https://github.com/Benegamer/PyBot-Discord')
+
 #########################################################################################
 #Music
-@bot.command(name='queue')
-async def queue_(ctx, url):
-    global queue
 
-    queue.append(url)
-    await ctx.send(f'`{url}` added to queue!')
+@bot.command(aliases=['purl'],name="playurl", help='Play a song with an url')
+async def playurl(ctx, url):
 
+    if not ctx.message.author.voice:
+        await ctx.send("Your are not connected to a voice channel")
+        return
 
-@bot.command(name='remove')
-async def remove(ctx, number):
-    global queue
+    else:
+        channel = ctx.message.author.voice.channel
 
-    try:
-        del (queue[int(number)])
-        await ctx.send(f'Your queue is now `{queue}!`')
+    await channel.connect()
 
-    except:
-        await ctx.send('Your queue is either **empty** or the index is **out of range**')
+    server = ctx.message.guild
+    voice_channel = server.voice_client
 
+    async with ctx.typing():
+        player = await YTDLSource.from_url(url, loop=bot.loop)
+        voice_channel.play(player, after=lambda e: print('Player error: %s' %e) if e else None)
 
-@bot.command(name='play')
+        await ctx.send(f'**Now playing:**{player.title}**')
+
+@bot.command(aliases=['j'],name='join', help='Joins to yor channel')
+async def join(ctx):
+    if not ctx.message.author.voice:
+        await ctx.send("You are not connected to a voice channel")
+        return
+
+    else:
+        channel = ctx.message.author.voice.channel
+
+    await channel.connect()
+
+@bot.command(name='play', help='Play songs from the que')
 async def play(ctx):
     global queue
 
@@ -157,36 +159,56 @@ async def play(ctx):
     await ctx.send('**Now playing:** {}'.format(player.title))
     del (queue[0])
 
+@bot.command(aliases=['q'],name='queue', help='Add a song to the Queue')
+async def queue_(ctx, url):
+    global queue
 
-@bot.command(name='pause', help='This command pauses the song')
+    queue.append(url)
+    await ctx.send(f'`{url}` added to queue!')
+
+@bot.command(aliases=['l'],name="leave", help='Makes the Bot go away')
+async def stop(ctx):
+    if ctx.author.voice is None:
+        await ctx.send("Im not in a channel ")
+        return
+    await ctx.voice_client.disconnect()
+
+
+@bot.command(name='remove', help='Remove a song from the Queue')
+async def remove(ctx, number):
+    global queue
+
+    try:
+        del (queue[int(number)])
+        await ctx.send(f'Your queue is now `{queue}!`')
+
+    except:
+        await ctx.send('Your queue is either **empty** or the index is **out of range**')
+
+@bot.command(aliases=['m'],name='pause', help='Pause the current song')
 async def pause(ctx):
     server = ctx.message.guild
     voice_channel = server.voice_client
 
     voice_channel.pause()
 
-@bot.command(name='resume', help='This command resumes the song!')
+@bot.command(aliases=['r'],name='resume', help='Resume the current song')
 async def resume(ctx):
     server = ctx.message.guild
     voice_channel = server.voice_client
 
     voice_channel.resume()
 
-@bot.command(name='view', help='This command shows the queue')
-async def view(ctx):
-    await ctx.send(f'Your queue is now `{queue}!`')
-
-@bot.command(name='leave', help='This command stops makes the bot leave the voice channel')
-async def leave(ctx):
-    voice_client = ctx.message.guild.voice_client
-    await voice_client.disconnect()
-
-@bot.command(name='stop', help='This command stops the song!')
+@bot.command(aliases=['s'],name='stop', help='Stops the current song')
 async def stop(ctx):
     server = ctx.message.guild
     voice_channel = server.voice_client
 
     voice_channel.stop()
+
+@bot.command(aliases=['v'],name='view', help='Shows the queue')
+async def view(ctx):
+    await ctx.send(f'Your queue is now `{queue}!`')
 
 #Startup
 bot.run(token)

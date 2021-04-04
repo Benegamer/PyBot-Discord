@@ -5,16 +5,15 @@ def write_json():
     # Data to be written
     dictionary = {
         "token": "Put your Token here!",
-        "prefix": "Put your Prefix here!",
-        "admin_id": "Put the Admin ID here!"
+        "prefix": "Put your Prefix here!"
     }
 
     # Serializing json
-    json_object = json.dumps(dictionary, indent=3)
+    json_object = json.dumps(dictionary, indent=2)
 
     # Writing to config.json
     with open("config.json", "w") as outfile:
         outfile.write(json_object)
 
-print("Setup complete! I did:")
+print("Setup complete! I did it!")
 write_json()
