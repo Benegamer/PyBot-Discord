@@ -26,4 +26,4 @@ RUN echo "wget https://raw.githubusercontent.com/Benegamer/PyBot-Discord/master/
 ADD config.json . 
 
 #Startup command
-CMD [ "python", "./main.py" ]
+CMD [ "python", "./main2.0.py" ]
