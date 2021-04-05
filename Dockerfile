@@ -21,7 +21,7 @@ RUN  cd ./ffmpeg-4.0.2; make install
 
 #####
 
-RUN echo "wget https://raw.githubusercontent.com/Benegamer/PyBot-Discord/master/main2.0.py"
+RUN "wget https://raw.githubusercontent.com/Benegamer/PyBot-Discord/master/main2.0.py"
 ADD config.json . 
 
 #####
