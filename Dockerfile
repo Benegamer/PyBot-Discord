@@ -1,7 +1,7 @@
 #Python version
 FROM python:3.9                
 
-#Datein hinzufügen
+#Add files
 ADD config.json .              
 ADD main2.0.py .               
 
