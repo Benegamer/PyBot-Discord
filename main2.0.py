@@ -74,7 +74,6 @@ def read_json():
         print("Something went wrong! I can feel it! \n")
 
 
-
 read_json()
 #set env for Bot
 bot = commands.Bot(command_prefix=bot_prefix)
