@@ -3,7 +3,7 @@ FROM python:3.9
 
 #Datein hinzufügen
 ADD config.json .              
-ADD main.py .               
+ADD main2.0.py .               
 
 #command der beim bauen gestartet wird
 #install discord extensions
