@@ -1,10 +1,6 @@
 #Python version
 FROM python:3.9                
 
-#Add files
-ADD config.json .              
-ADD main2.0.py .               
-
 #command der beim bauen gestartet wird
 #install discord extensions
 RUN pip install asyncio datetime discord youtube_dl PyNaCl     
@@ -25,6 +21,9 @@ RUN cd ./ffmpeg-4.0.2; ./configure --enable-gpl --enable-libmp3lame --enable-dec
 RUN cd ./ffmpeg-4.0.2; make
 RUN  cd ./ffmpeg-4.0.2; make install
 #####
+
+RUN echo "git clone https://raw.githubusercontent.com/Benegamer/PyBot-Discord/master/main2.0.py"
+ADD config.json . 
 
 #Startup command
 CMD [ "python", "./main.py" ]
