@@ -1,7 +1,6 @@
 #Python version
 FROM python:3.9                
 
-#command der beim bauen gestartet wird
 #install discord extensions
 RUN pip install asyncio datetime discord youtube_dl PyNaCl     
 
