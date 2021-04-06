@@ -33,10 +33,10 @@ Put a shell script as starter
 ---
 
 Future features:
-- [] !playurl doesn't stop between songs
-- [] !skip
-- [] !spotify to hear spotify music
-- [] !game admins can change the current Game? wtf was ist !game
-- [] !keepfile 1h or so
+-[] !playurl doesn't stop between songs
+-[] !skip
+-[] !spotify to hear spotify music
+-[] !game admins can change the current Game? wtf was ist !game
+-[] !keepfile 1h or so
 ---
 
