@@ -1,6 +1,5 @@
 # **Python Musicbot**
 
----
 
 To run this Bot you need to have:
     
@@ -17,19 +16,14 @@ Ignore the Errors in the Console they are Features :)
 
 ---
 
-
 **V 1.0**
-Bot is running
-
+- Bot is running
 ---
 
 **V 1.1**
-
-Put a shell script as starter
-
--Fixed some minor issues
--Fixed bot not replaying with *!playurl*
-
+- Put a shell script as starter
+- Fixed some minor issues
+- Fixed bot not replaying with *!playurl*
 ---
 
 Future features:
