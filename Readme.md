@@ -34,7 +34,7 @@ Put a shell script as starter
 
 Future features:
 
-- [ ] !playurl doesn't stop between songs
+- [ ] !playurl stops between songs
 - [ ] !skip
 - [ ] !spotify to hear spotify music
 - [ ] !game admins can change the current Game? wtf was ist !game
