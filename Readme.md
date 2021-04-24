@@ -26,7 +26,7 @@ Future features:
 **V 2.0**
 - NOW only supporting Docker!
 - Added Env Variables for Docker
-- Cleandup the Docker files!
+- Cleaned up the Docker files!
 
 - Fixed Time not working!
 - Fixed !play stoping (dirty but fixed:))
