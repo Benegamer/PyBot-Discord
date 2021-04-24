@@ -2,7 +2,7 @@
 FROM python:3.9                
 
 #Install discord extensions
-RUN pip install asyncio datetime discord youtube_dl PyNaCl     
+RUN pip install asyncio datetime pytz discord youtube_dl PyNaCl     
 
 #Credit to SoftwareStep
 #####
