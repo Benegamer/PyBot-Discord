@@ -1,6 +1,5 @@
-for /f "delims== tokens=1,2" %%G in (Config.txt) do set %%G=%%H
-
 if exist Config.txt (
+for /f "delims== tokens=1,2" %%G in (Config.txt) do set %%G=%%H
 cls
 docker build -t discordbot .     
 
