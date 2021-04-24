@@ -20,11 +20,7 @@ RUN cd ./ffmpeg-4.0.2; ./configure --enable-gpl --enable-libmp3lame --enable-dec
 RUN cd ./ffmpeg-4.0.2; make -j 4
 RUN  cd ./ffmpeg-4.0.2; make install
 
-#####
-
 RUN wget https://raw.githubusercontent.com/Benegamer/PyBot-Discord/master/main2.0.py
-
-####
 
 #Startup command
 CMD [ "python", "./main2.0.py" ]

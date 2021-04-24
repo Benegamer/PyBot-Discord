@@ -32,3 +32,20 @@ Future features:
 - Fixed !play stoping (dirty but fixed:))
 
 ---
+
+**V 2.1**
+
+~~-Fixed !play stoping (dirty but fixed:))~~
+
+- Fixed some typos around the World:)
+
+---
+
+**V 2.2**
+
+- Fixed some typos around the World:)
+- Fixed !play stoping
+- Added !game role
+- Added !game change and default
+
+---

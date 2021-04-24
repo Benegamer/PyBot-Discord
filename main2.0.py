@@ -5,12 +5,20 @@ from discord.ext import commands
 import youtube_dl
 import random
 import os
-from datetime import datetime, timedelta
-from pytz import timezone
 import pytz
+from datetime import datetime
+
+# get bot_prefix form ENV
+bot_prefix = os.environ['PREFIX']
+
+# get token from ENV
+token = os.environ['TOKEN']
+
+# set env for Bot
+bot = commands.Bot(command_prefix=bot_prefix)
 
 # Va
-default_game = "!helpme for personal help"
+default_game = "!help for personal help"
 queue = []
 
 youtube_dl.utils.bug_reports_message = lambda: ''
@@ -58,15 +66,6 @@ class YTDLSource(discord.PCMVolumeTransformer):
         return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
 
 
-# get bot_prefix form ENV
-bot_prefix = os.environ['PREFIX']
-
-# get token from ENV
-token = os.environ['TOKEN']
-
-# set env for Bot
-bot = commands.Bot(command_prefix=bot_prefix)
-
 
 #########################################################################################
 @bot.event
@@ -75,7 +74,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('---------------')
-    await bot.change_presence(activity=discord.Game("!h for Help!"))
+    await bot.change_presence(activity=discord.Game(default_game))
     pytz.timezone("UTC")
 
 
@@ -98,7 +97,7 @@ async def time(ctx):
     now = utc_time.astimezone(tz)
 
     current_time = now.strftime("%H:%M:%S")
-    print(f"""Wir haben {current_time} Uhr""")
+    await ctx.send(f"""Wir haben {current_time} Uhr""")
 
 
 @bot.command(aliases=['f'], name="flip", help='Flip a coin')
@@ -115,8 +114,19 @@ async def flip(ctx):
     await ctx.send('Please go to https://github.com/Benegamer/PyBot-Discord')
 
 
+@bot.command(name="game", help='An Admin can change the current playing game!')
+async def game(ctx, gameabc):
+    for role in ctx.message.author.roles:
+        if role.name == '!game':
+            if gameabc == 'default':
+                await bot.change_presence(activity=discord.Game(default_game))
+            else:
+                await bot.change_presence(activity=discord.Game(gameabc))
+
+
 #########################################################################################
 # Music
+#########################################################################################
 
 
 @bot.command(aliases=['purl'], name="playurl", help='Play a song with an url')
@@ -157,6 +167,16 @@ async def join(ctx):
     await channel.connect()
 
 
+def play_next(ctx):
+    #coro = ctx.send("!play")   #This is a fallback option!
+    coro = play(ctx) ##ultra credit to SoftwareStep
+    future = asyncio.run_coroutine_threadsafe(coro, bot.loop)
+    try:
+        future.result()
+    except:
+        pass
+
+
 @bot.command(name='play', help='Play songs from the queue')
 async def play(ctx):
     global queue
@@ -166,13 +186,10 @@ async def play(ctx):
 
     async with ctx.typing():
         player = await YTDLSource.from_url(queue[0], loop=bot.loop)
-        voice_channel.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
+        voice_channel.play(player ,after=lambda e: play_next(ctx))
 
     await ctx.send('**Now playing:** {}'.format(player.title))
     del (queue[0])
-
-    if queue:
-        await ctx.send("!play")
 
 
 @bot.command(aliases=['q'], name='queue', help='Add a song to the Queue')

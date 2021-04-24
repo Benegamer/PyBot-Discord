@@ -3,7 +3,7 @@ for /f "delims== tokens=1,2" %%G in (Config.txt) do set %%G=%%H
 cls
 docker build -t discordbot .
 
-docker run -d --name discordbot --env PREFIX=%Discord_prefix% --env TOKEN=%Discord_token% --restart unless-stopped redis discordbot
+docker run -d --name discordbot --env PREFIX=%Discord_prefix% --env TOKEN=%Discord_token% discordbot
 pause
 ) else (
 
