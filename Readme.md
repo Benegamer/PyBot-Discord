@@ -15,10 +15,10 @@ Ignore the Errors in the Console they are Features :)
 
 Future features:
 
-- [ ] !playurl stops between songs
+- [x] !playurl stops between songs
 - [ ] !skip
 - [ ] !spotify to hear spotify music
-- [ ] !game admins can change the current Game in Discord ( Now Playing ... )
+- [x] !game admins can change the current Game in Discord ( Now Playing ... )
 - [ ] !keepfile 1h or so
 
 ---
