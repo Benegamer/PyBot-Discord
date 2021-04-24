@@ -14,6 +14,8 @@ bot_prefix = os.environ['PREFIX']
 # get token from ENV
 token = os.environ['TOKEN']
 
+print(bot_prefix)
+
 # set env for Bot
 bot = commands.Bot(command_prefix=bot_prefix)
 
