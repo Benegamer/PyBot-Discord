@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if test -f "Config.txt"; then
     source Config.txt
 
