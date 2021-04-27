@@ -112,7 +112,7 @@ async def flip(ctx):
 
 
 @bot.command(aliases=['b'], name="bug", help='Bugreports and other thinks:')
-async def flip(ctx):
+async def bug(ctx):
     await ctx.send('Please go to https://github.com/Benegamer/PyBot-Discord')
 
 
